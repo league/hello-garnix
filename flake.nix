@@ -53,10 +53,16 @@
         modules = [
           ({ modulesPath, pkgs, ... }: {
             imports = [ "${modulesPath}/virtualisation/qemu-vm.nix" ];
-            environment.systemPackages =
-              with pkgs; [ hello gcipher-cli neofetch ];
+            environment.systemPackages = with pkgs; [
+              hello
+              gcipher-cli
+              neofetch
+            ];
           })
           {
+            users.mutableUsers = false;
+            users.users.root.hashedPassword =
+              "$6$AaW9nlwiwN/a$WE8VF41jDww37XPXN3m8aLEJ8DtGBsy/pLZaHKoJHXhja6cqtvCptPV9ZM1dpG4ng4GIVnHmfPqBsflo4M5Di.";
             nixpkgs.overlays = [ self.overlays.gcipher ];
             networking.hostName = "starfish";
           }
