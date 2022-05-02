@@ -55,7 +55,7 @@
             imports = [ "${modulesPath}/virtualisation/qemu-vm.nix" ];
             environment.systemPackages = with pkgs; [
               hello
-              gcipher-cli
+              gcipher-clo
               neofetch
             ];
           })
