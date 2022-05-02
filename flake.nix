@@ -54,7 +54,7 @@
           ({ modulesPath, pkgs, ... }: {
             imports = [ "${modulesPath}/virtualisation/qemu-vm.nix" ];
             environment.systemPackages =
-              [ pkgs.hello pkgs.gcipher-cli neofetch ];
+              with pkgs; [ hello gcipher-cli neofetch ];
           })
           {
             nixpkgs.overlays = [ self.overlays.gcipher ];
