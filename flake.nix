@@ -72,6 +72,12 @@
       packages = eachSystem (system: {
         inherit (pkgs.${system}) gcipher-cli;
 
+        docs-site = pkgs.${system}.linkFarm "docs-site" [{
+          name = "postgresql";
+          path =
+            "${pkgs.${system}.postgresql.doc}/share/doc/postgresql/html";
+        }];
+
         hello-garnix = pkgs.${system}.stdenv.mkDerivation {
           name = "hello-garnix";
           unpackPhase = ":";
