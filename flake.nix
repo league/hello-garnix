@@ -48,6 +48,15 @@
             }) { };
       };
 
+      nixosConfigurations.starfish = lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [({modulesPath, pkgs, ...}: {
+          imports = [ "${modulesPath}/virtualisation/qemu-vm.nix" ];
+          networking.hostName = "starphish";
+          environment.systemPackages = [pkgs.hello];
+        })];
+      };
+
       packages = eachSystem (system: {
         inherit (pkgs.${system}) gcipher-cli;
 
