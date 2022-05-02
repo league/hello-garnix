@@ -50,11 +50,17 @@
 
       nixosConfigurations.starfish = lib.nixosSystem {
         system = "x86_64-linux";
-        modules = [({modulesPath, pkgs, ...}: {
-          imports = [ "${modulesPath}/virtualisation/qemu-vm.nix" ];
-          networking.hostName = "starphish";
-          environment.systemPackages = [pkgs.hello];
-        })];
+        modules = [
+          ({ modulesPath, pkgs, ... }: {
+            imports = [ "${modulesPath}/virtualisation/qemu-vm.nix" ];
+            environment.systemPackages =
+              [ pkgs.hello pkgs.gcipher-cli neofetch ];
+          })
+          {
+            nixpkgs.overlays = [ self.overlays.gcipher ];
+            networking.hostName = "starfish";
+          }
+        ];
       };
 
       packages = eachSystem (system: {
